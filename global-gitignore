@@ -39,3 +39,12 @@ Thumbs.db
 # Vim Session File #
 ####################
 Session.vim
+
+# KJC
+*~
+.idea
+ansible.cfg
+php_errors.log
+*.diff
+.vscode
+Thumbs.db
