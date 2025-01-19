@@ -30,6 +30,7 @@
 	branch-delete-merged = !git branch --merged | grep -Ev \"(^\\*|^\\s+master$)\" | xargs git branch -d
 
 	can-ff-merge = "!f() {                                              \
+		: git branch ; \
 		[ -e "${1}" ] && echo "Missing branch name to merge" && exit 1; \
 		git "merge-base --is-ancestor                                   \
 			$(git branch --show-current) ${1}"                          \
@@ -116,6 +117,22 @@
 		fi'";
 
 	recover-rejected-commit = "!f() { git "commit -e --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG"; }; f"
+
+	open-pr-github = "!f() { \
+		: git branch ; \
+		if [[ -z $1 ]]; \
+		then \
+			target=''; \
+		else \
+			target=\"$1...\"; \
+		fi; \
+		open \"$(git ls-remote --get-url $(git config --get branch.$(git branch --show-current).remote) \
+			| sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
+			| sed 's|\\.git$||'; \
+		)/compare/$target$(\
+		git config --get branch.$(git branch --show-current).merge | cut -d '/' -f 3- \
+		)?expand=1\"; \
+	}; f"
 
 [commit]
 	verbose = true

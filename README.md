@@ -2,9 +2,14 @@ Ironcode Git Enhancements
 =========================
 https://github.com/ironcodestudio/ironcode-git-enhancements
 
+Archived
+--------
+
+This project has been archived in favor of [salcode/salcode-git](https://github.com/salcode/salcode-git).
+
 Version
 -------
-2.1.0
+2.2.1
 
 License
 -------
@@ -91,6 +96,12 @@ git delete-remote-tracking-branch <local branch> = !git push $trackingRemote --d
 # Check if a fast-forward merge is possible
 # like a dry run for git merge --ff-only <branchName>
 git can-ff-merge <branchName>
+
+# Open the default web browser to the GitHub URL
+# to create a Pull Request (PR) for the current branch
+# into the "target" branch (or into the default
+# branch if "target" is omitted)
+git open-pr-github [<target>]
 
 # Populate a new git commit message with the contents of .git/COMMIT_EDITMSG
 # This is helpful when the git commit-msg hook fails.
